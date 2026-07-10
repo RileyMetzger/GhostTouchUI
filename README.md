@@ -4,6 +4,12 @@ GhostTouchUI is a Windows desktop utility designed to help keep some games from 
 
 This project is free to use, modify, and include in other work under the MIT License.
 
+## How It Works
+
+GhostTouchUI installs low-level Windows keyboard and mouse hooks to track real user activity. After 45 seconds without detected input, it sends a minimal one-pixel mouse movement and immediately restores the cursor position.
+
+The WPF application uses a small MVVM structure and remains available through the Windows notification area when minimized.
+
 ## Repository Layout
 
 ```text
@@ -50,7 +56,7 @@ dotnet run --project .\src\GhostMouse\GhostMouse.csproj
 
 ## Notes
 
-This repository is prepared for source control, but it has not been initialized as a git repository. Local IDE state, build artifacts, and user-specific files are intentionally ignored.
+Local IDE state, build artifacts, logs, and user-specific files are intentionally excluded from source control.
 
 ## License
 
