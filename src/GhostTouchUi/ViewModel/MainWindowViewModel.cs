@@ -81,24 +81,12 @@ public class MainWindowViewModel : INotifyPropertyChanged, IDisposable
     }
 
     /// <summary>
-    /// Reserved hook for reacting to log collection changes.
-    /// </summary>
-    /// <param name="sender">The collection that changed.</param>
-    /// <param name="e">Details about the collection mutation.</param>
-    private void Logs_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-    {
-        // Here we will notify the view when the collection has changed
-        // No need to create a custom event; the view can access Logs directly.
-    }
-
-    /// <summary>
     /// Appends a log entry on the UI thread and trims the log to its maximum size.
     /// </summary>
     /// <param name="message">The message to display.</param>
     /// <param name="isActivation">True when the log item represents a start or stop event.</param>
     private void AddLog(string message, bool isActivation)
     {
-        // Use the Dispatcher to ensure the code runs on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
             lock (Logs)
@@ -130,11 +118,6 @@ public class MainWindowViewModel : INotifyPropertyChanged, IDisposable
     /// <summary>
     /// Updates a backing field and raises a notification when the value changes.
     /// </summary>
-    /// <typeparam name="T">The field type.</typeparam>
-    /// <param name="field">The storage location for the property value.</param>
-    /// <param name="value">The new value to assign.</param>
-    /// <param name="propertyName">The property name. This is supplied automatically for callers.</param>
-    /// <returns><see langword="true"/> when the value changed; otherwise, <see langword="false"/>.</returns>
     protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
     {
         if (EqualityComparer<T>.Default.Equals(field, value)) return false;
@@ -181,9 +164,6 @@ public class RelayCommand(Action execute, Func<bool>? canExecute = null) : IComm
     private readonly Func<bool>? _canExecute = canExecute;
     private EventHandler? _canExecuteChanged;
 
-    /// <summary>
-    /// Occurs when the command's executable state changes.
-    /// </summary>
     public event EventHandler? CanExecuteChanged
     {
         add
@@ -198,26 +178,13 @@ public class RelayCommand(Action execute, Func<bool>? canExecute = null) : IComm
         }
     }
 
-    /// <summary>
-    /// Determines whether the command can currently execute.
-    /// </summary>
-    /// <param name="parameter">Optional command parameter supplied by WPF.</param>
-    /// <returns><see langword="true"/> when the command is allowed to execute; otherwise, <see langword="false"/>.</returns>
     public bool CanExecute(object? parameter) => _canExecute?.Invoke() ?? true;
 
-    /// <summary>
-    /// Executes the command action.
-    /// </summary>
-    /// <param name="parameter">Optional command parameter supplied by WPF.</param>
     public void Execute(object? parameter) => _execute.Invoke();
 
-    /// <summary>
-    /// Notifies WPF that the command's executable state should be re-evaluated.
-    /// </summary>
     public void RaiseCanExecuteChanged()
     {
         _canExecuteChanged?.Invoke(this, EventArgs.Empty);
-
         CommandManager.InvalidateRequerySuggested();
     }
 }
