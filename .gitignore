@@ -1,0 +1,46 @@
+# Build output
+bin/
+obj/
+artifacts/
+TestResults/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.rsuser
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# VS Code
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/settings.json
+!.vscode/tasks.json
+
+# .NET
+*.nupkg
+*.snupkg
+project.assets.json
+project.nuget.cache
+*.binlog
+
+# Publish output and local profiles
+publish/
+*.pubxml.user
+
+# Windows and local environment files
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.log
+*.tmp
+*.temp
+.env
+.env.*
+
